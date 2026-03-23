@@ -7,29 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-
-const CATEGORIES = [
-  { value: null, label: "All" },
-  { value: "FRONTEND", label: "Frontend" },
-  { value: "BACKEND", label: "Backend" },
-  { value: "FULLSTACK", label: "Full Stack" },
-  { value: "DSA", label: "DSA" },
-  { value: "SYSTEM_DESIGN", label: "System Design" },
-  { value: "BEHAVIORAL", label: "Behavioral" },
-  { value: "DEVOPS", label: "DevOps" },
-  { value: "MOBILE", label: "Mobile" },
-];
-
-const CATEGORY_LABEL = {
-  FRONTEND: "Frontend",
-  BACKEND: "Backend",
-  FULLSTACK: "Full Stack",
-  DSA: "DSA",
-  SYSTEM_DESIGN: "System Design",
-  BEHAVIORAL: "Behavioral",
-  DEVOPS: "DevOps",
-  MOBILE: "Mobile",
-};
+import { CATEGORIES, CATEGORY_LABEL } from "@/lib/data";
 
 function formatTime(iso) {
   return new Date(iso).toLocaleTimeString("en-US", {
