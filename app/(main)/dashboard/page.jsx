@@ -13,25 +13,13 @@ import AvailabilitySection from "./components/AvailabilitySection";
 import AppointmentsSection from "./components/AppointmentsSection";
 import EarningsSection from "./components/EarningsSection";
 import { ClipboardList, Clock, Wallet } from "lucide-react";
+import { getCurrentUser } from "@/actions/user";
 
 export default async function InterviewerDashboardPage() {
   const user = await currentUser();
   if (!user) redirect("/");
 
-  const dbUser = await db.user.findUnique({
-    where: { clerkUserId: user.id },
-    select: {
-      role: true,
-      name: true,
-      title: true,
-      company: true,
-      imageUrl: true,
-    },
-  });
-
-  if (!dbUser) redirect("/");
-  if (dbUser.role === "UNASSIGNED") redirect("/onboarding");
-  if (dbUser.role === "INTERVIEWEE") redirect("/explore");
+  const dbUser = await getCurrentUser();
 
   const [availability, appointments, stats, withdrawalHistory] =
     await Promise.all([
