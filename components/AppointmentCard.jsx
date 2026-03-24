@@ -8,26 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Clock, Video, Sparkles } from "lucide-react";
 import { FeedbackModal } from "./FeedbackModal";
 import { formatDate, formatDuration, formatTime } from "@/lib/helpers";
-
-const STATUS_STYLES = {
-  SCHEDULED: "border-blue-500/20 bg-blue-500/10 text-blue-400",
-  COMPLETED: "border-green-500/20 bg-green-500/10 text-green-400",
-  CANCELLED: "border-red-500/20 bg-red-500/10 text-red-400",
-};
-
-const RATING_STYLES = {
-  POOR: "ml-auto border-red-500/20 bg-red-500/10 text-red-400",
-  AVERAGE: "ml-auto border-yellow-500/20 bg-yellow-500/10 text-yellow-400",
-  GOOD: "ml-auto border-blue-500/20 bg-blue-500/10 text-blue-400",
-  EXCELLENT: "ml-auto border-green-500/20 bg-green-500/10 text-green-400",
-};
-
-const RATING_LABEL = {
-  POOR: "Poor",
-  AVERAGE: "Average",
-  GOOD: "Good",
-  EXCELLENT: "Excellent",
-};
+import { RATING_LABEL, RATING_STYLES, STATUS_STYLES } from "@/lib/data";
 
 export function AppointmentCard({ booking, mode }) {
   const [feedbackOpen, setFeedbackOpen] = useState(false);

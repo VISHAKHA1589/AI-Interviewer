@@ -17,33 +17,7 @@ import {
 } from "lucide-react";
 import { GrayTitle } from "@/components/reusables";
 import { StarsBackgroundDemo } from "./demo-components-backgrounds-stars";
-
-const RATING_CONFIG = {
-  POOR: {
-    label: "Poor",
-    emoji: "📉",
-    className: "border-red-500/20 bg-red-500/10 text-red-400",
-    bg: "from-red-500/5",
-  },
-  AVERAGE: {
-    label: "Average",
-    emoji: "📊",
-    className: "border-yellow-500/20 bg-yellow-500/10 text-yellow-400",
-    bg: "from-yellow-500/5",
-  },
-  GOOD: {
-    label: "Good",
-    emoji: "👍",
-    className: "border-blue-500/20 bg-blue-500/10 text-blue-400",
-    bg: "from-blue-500/5",
-  },
-  EXCELLENT: {
-    label: "Excellent",
-    emoji: "🏆",
-    className: "border-green-500/20 bg-green-500/10 text-green-400",
-    bg: "from-green-500/5",
-  },
-};
+import { RATING_CONFIG } from "@/lib/data";
 
 export function FeedbackModal({
   open,

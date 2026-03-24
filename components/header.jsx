@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import RoleRedirect from "./RoleRedirect";
 import CreditButton from "./CreditButton";
-import { Search, CalendarDays, Users } from "lucide-react";
+import { CalendarDays, Users } from "lucide-react";
 
 const Header = async () => {
   const user = await checkUser();

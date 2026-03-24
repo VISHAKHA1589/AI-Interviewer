@@ -8,7 +8,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import PricingSection from "./PricingSection";
-import { AlertCircle, Star } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 
 export default function UpgradeModal({ open, onOpenChange, reason }) {
   return (
