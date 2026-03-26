@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -12,6 +13,7 @@ import { RATING_LABEL, RATING_STYLES, STATUS_STYLES } from "@/lib/data";
 
 export function AppointmentCard({ booking, mode, isPast = false }) {
   const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const { has } = useAuth();
 
   const {
     startTime,
@@ -165,7 +167,7 @@ export function AppointmentCard({ booking, mode, isPast = false }) {
               </Button>
             )}
 
-            {recordingUrl && (
+            {recordingUrl && has({ plan: "pro" }) && (
               <Button variant="outline" size="sm" className="gap-2" asChild>
                 <a
                   href={recordingUrl}
@@ -177,25 +179,26 @@ export function AppointmentCard({ booking, mode, isPast = false }) {
               </Button>
             )}
 
-            {feedback && (
-              <>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="gap-1.5 border-amber-400/20 text-amber-400 hover:bg-amber-400/10 hover:border-amber-400/40"
-                  onClick={() => setFeedbackOpen(true)}
-                >
-                  <Sparkles size={12} />
-                  Full Feedback
-                </Button>
-                <Badge
-                  variant="outline"
-                  className={RATING_STYLES[feedback.overallRating]}
-                >
-                  ✦ {RATING_LABEL[feedback.overallRating]} performance
-                </Badge>
-              </>
-            )}
+            {feedback &&
+              (has({ plan: "starter" }) || has({ plan: "pro" }))(
+                <>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="gap-1.5 border-amber-400/20 text-amber-400 hover:bg-amber-400/10 hover:border-amber-400/40"
+                    onClick={() => setFeedbackOpen(true)}
+                  >
+                    <Sparkles size={12} />
+                    Full Feedback
+                  </Button>
+                  <Badge
+                    variant="outline"
+                    className={RATING_STYLES[feedback.overallRating]}
+                  >
+                    ✦ {RATING_LABEL[feedback.overallRating]} performance
+                  </Badge>
+                </>
+              )}
           </div>
         )}
       </article>
