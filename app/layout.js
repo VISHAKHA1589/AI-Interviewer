@@ -20,7 +20,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata = {
-  title: "Prept",
+  title: "PrepHelp",
   description: "",
 };
 

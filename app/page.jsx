@@ -267,7 +267,7 @@ export default function LandingPage() {
           </h2>
 
           <p className="relative text-stone-400 font-light text-sm mb-11">
-            Join thousands of engineers already levelling up on Prept.
+            Join thousands of engineers already levelling up on PrepHelp.
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
