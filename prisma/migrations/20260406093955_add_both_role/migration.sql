@@ -1,0 +1,5 @@
+-- AlterEnum
+ALTER TYPE "UserRole" ADD VALUE 'BOTH';
+
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "credits" SET DEFAULT 100;

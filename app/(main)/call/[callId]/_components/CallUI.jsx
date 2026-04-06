@@ -46,20 +46,35 @@ export default function CallUI({
   const [activeTab, setActiveTab] = useState("chat");
 
   // Auto-stop recording before leaving
-  const handleLeave = useCallback(async () => {
-    try {
-      if (call) {
-        const isRecording = call.state?.recording;
-        if (isRecording) {
-          await call.stopRecording().catch(() => {});
-        }
-        await call.leave().catch(() => {});
+const handleLeave = useCallback(async () => {
+  try {
+    if (call) {
+      const isRecording = call.state?.recording;
+      if (isRecording) {
+        await call.stopRecording().catch(() => {});
       }
-    } finally {
-      onLeave();
-    }
-  }, [call, onLeave]);
 
+      if (isInterviewer) {
+        await call.end().catch(() => {}); // ends for EVERYONE
+      } else {
+        await call.leave().catch(() => {}); // only interviewee leaves
+      }
+    }
+  } finally {
+    onLeave();
+  }
+}, [call, isInterviewer, onLeave]);
+
+
+useEffect(() => {
+  if (!call || isInterviewer) return;
+
+  const unsubscribe = call.on("call.ended", () => {
+    onLeave(); // redirect interviewee automatically
+  });
+
+  return () => unsubscribe();
+}, [call, isInterviewer, onLeave]);
   // ── Chat client — same token works for both Video + Chat SDKs ──
   const chatClient = useCreateChatClient({
     apiKey,
