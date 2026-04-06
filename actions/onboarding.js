@@ -23,9 +23,26 @@ export const completeOnboarding = async (data) => {
   }
 
   try {
-    await db.user.update({
+    await db.user.upsert({
       where: { clerkUserId: user.id },
-      data: {
+      update: {
+        role,
+        ...(role === "INTERVIEWER" && {
+          title,
+          company,
+          yearsExp,
+          bio,
+          categories,
+        }),
+      },
+      create: {
+        clerkUserId: user.id,
+        name: `${user.firstName} ${user.lastName}`,
+        email: user.emailAddresses[0].emailAddress,
+        imageUrl: user.imageUrl,
+        credits: 1000,
+        currentPlan: "pro",
+        creditsLastAllocatedAt: new Date(),
         role,
         ...(role === "INTERVIEWER" && {
           title,
