@@ -72,7 +72,7 @@ export default function LandingPage() {
 
         {/* LEFT */}
         <div className="col-span-full lg:col-span-3 flex flex-col items-center justify-center text-center lg:-rotate-2">
-          <Badge variant="gold">Powered by AI — Now in Beta</Badge>
+         
 
           <h1 className="font-serif relative text-5xl sm:text-6xl lg:text-7xl tracking-tighter max-w-4xl">
             <GrayTitle>Ace your next interview</GrayTitle>
