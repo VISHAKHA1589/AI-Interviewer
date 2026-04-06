@@ -28,8 +28,6 @@ import { Badge } from "@/components/ui/badge";
 import { MessageSquare, Sparkles, Loader2 } from "lucide-react";
 import AIQuestionsPanel from "./AIQuestions";
 
-// ─── Call UI (inside StreamCall context) ─────────────────────────────────────
-
 export default function CallUI({
   callId,
   isInterviewer,
@@ -45,36 +43,21 @@ export default function CallUI({
 
   const [activeTab, setActiveTab] = useState("chat");
 
-  // Auto-stop recording before leaving
-const handleLeave = useCallback(async () => {
-  try {
-    if (call) {
-      const isRecording = call.state?.recording;
-      if (isRecording) {
-        await call.stopRecording().catch(() => {});
+  // Both participants just leave — Stream ends call naturally when last person leaves
+  const handleLeave = useCallback(async () => {
+    try {
+      if (call) {
+        const isRecording = call.state?.recording;
+        if (isRecording) {
+          await call.stopRecording().catch(() => {});
+        }
+        await call.leave().catch(() => {});
       }
-
-      if (isInterviewer) {
-        await call.end().catch(() => {}); // ends for EVERYONE
-      } else {
-        await call.leave().catch(() => {}); // only interviewee leaves
-      }
+    } finally {
+      onLeave();
     }
-  } finally {
-    onLeave();
-  }
-}, [call, isInterviewer, onLeave]);
+  }, [call, onLeave]);
 
-
-useEffect(() => {
-  if (!call || isInterviewer) return;
-
-  const unsubscribe = call.on("call.ended", () => {
-    onLeave(); // redirect interviewee automatically
-  });
-
-  return () => unsubscribe();
-}, [call, isInterviewer, onLeave]);
   // ── Chat client — same token works for both Video + Chat SDKs ──
   const chatClient = useCreateChatClient({
     apiKey,
@@ -168,7 +151,6 @@ useEffect(() => {
               Chat
             </button>
 
-            {/* AI Questions tab — interviewer only */}
             {isInterviewer && (
               <button
                 type="button"

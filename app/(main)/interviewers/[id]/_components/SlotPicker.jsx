@@ -16,7 +16,7 @@ import {
   generateSlots,
 } from "@/lib/helpers";
 
-const SLOT_DURATION_MINUTES = 45;
+const SLOT_DURATION_MINUTES = 60; // ← changed from 45
 const DAYS_AHEAD = 7;
 
 export default function SlotPicker({
@@ -224,14 +224,7 @@ export default function SlotPicker({
               <div className="flex justify-between text-xs">
                 <span className="text-stone-500">Time</span>
                 <span className="text-stone-300">
-                  {formatTime(selectedSlot.startTime)} –{" "}
-                  {formatTime(selectedSlot.endTime)}
-                </span>
-              </div>
-              <div className="flex justify-between text-xs">
-                <span className="text-stone-500">Duration</span>
-                <span className="text-stone-300">
-                  {SLOT_DURATION_MINUTES} minutes
+                  {formatTime(selectedSlot.startTime)}
                 </span>
               </div>
             </div>
