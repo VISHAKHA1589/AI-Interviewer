@@ -73,7 +73,7 @@ export const bookSlot = async ({ interviewerId, startTime, endTime }) => {
   if (dbUser.credits < credits)
     throw new Error("Insufficient credits. Please upgrade your plan.");
 
-  // Check slot isn't already taken
+  
   const conflict = await db.booking.findFirst({
     where: {
       interviewerId,
@@ -85,7 +85,7 @@ export const bookSlot = async ({ interviewerId, startTime, endTime }) => {
   if (conflict)
     throw new Error("This slot was just booked. Please pick another.");
 
-  // ── Create Stream call ─────────────────────────────────────────────────────
+ 
   let streamCallId;
   try {
     const streamClient = new StreamClient(
